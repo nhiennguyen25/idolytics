@@ -1,1 +1,22 @@
 /* styling for feedback below video AND flashing results*/
+
+.flash {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  font-size: 3rem;
+  font-weight: 900;
+  pointer-events: none;
+  animation: pop 600ms ease-out forwards;
+}
+
+@keyframes pop {
+  0%   { opacity: 0; transform: translateX(-50%) scale(0.5); }
+  20%  { opacity: 1; transform: translateX(-50%) scale(1.2); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+.flash-good { color: #b80081; }
+.flash-okay    { color: #7301a0; }
+.flash-bad      { color: #100086; }
+.flash-miss    { color: #7a7676; }

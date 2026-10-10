@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import '../styling/feedback.css'
+
+// GET TIMING FROM QUYNH
 
 function scoreToRating(score) {
   if (score >= 85) return { label: "GOOD", tier: "good" };
@@ -10,8 +13,8 @@ function scoreToRating(score) {
 export default function FeedbackFlashing() {
   const [score, setScore] = useState(50);
   const [flash, setFlash] = useState(null);
-  const active = true;
-  const intervalMs = 700;
+  const active = false;
+  const intervalMs = 2000;
   const latest = useRef(score);
   const count = useRef(0);
   latest.current = score;
