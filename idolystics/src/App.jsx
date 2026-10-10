@@ -10,6 +10,7 @@ import {SkeletonTest} from "./components/SkeletonCanvas";
 import "./styling/video.css";
 
 
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -40,11 +41,11 @@ function App() {
     <div className = "webcam-container">
       <WebcamPose/>
       <SkeletonTest />
+      <FeedbackFlashing /> 
     </div>
     {/* <InstructorVideo/> */}
     {/* <PracticeControls/> */}
     {/* <FeedbackPanel /> */}
-     <FeedbackFlashing /> 
     {/* <ResultsScreen/> */}
 
     

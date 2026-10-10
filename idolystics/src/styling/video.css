@@ -1,9 +1,8 @@
 .webcam-container
 {
     position: relative;
-    top: 0;
-    left: 0;
-    display: inline-block;   /* shrink-wrap the video instead of stretching */
+    width: 640px;
+    height: 480px;
 
 }
 
