@@ -5,6 +5,7 @@ import FeedbackFlashing from './components/FeedbackFlashing'
 import WebcamPose from './components/WebcamPose'
 import { SkeletonTest } from './components/SkeletonCanvas'
 import './styling/video.css'
+import InstructorVideo from "./components/InstructorVideo";
 
 import { compareAngle } from "./movement-analysis/comparePoses.js";
 import referenceData from "./data/referenceLandmarksMirrored.json";
@@ -160,6 +161,11 @@ function App() {
             Get ready, find your space, and let's dance!
           </p>
 
+        <div className="practice-videos">
+          <div className="instructor-container">
+            <InstructorVideo />
+          </div>
+
           <div className = "webcam-container">
             <WebcamPose isCameraOn={isCameraOn} setIsCameraOn={setIsCameraOn} onLandmarks={setLandmarks}>
             {isCameraOn && <SkeletonTest landmarks={landmarks} width={640} height={480} />}
@@ -170,6 +176,7 @@ function App() {
             intervalMs={2000}
             /> 
           </div>
+        </div>
         </section>
       )}
     </main>
