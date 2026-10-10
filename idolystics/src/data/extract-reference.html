@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Idolytics Reference Extractor</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      max-width: 640px;
+      margin: 20px 0;
+      background: #111;
+    }
+
+    button {
+      margin: 8px 8px 8px 0;
+      padding: 10px 16px;
+      cursor: pointer;
+    }
+
+    #status {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+<body>
+  <h1>Idolytics Reference Extractor</h1>
+  <p>Select the instructor dance video from your computer.</p>
+
+  <input id="videoFile" type="file" accept="video/*,.mov" />
+
+  <video id="video" controls muted playsinline></video>
+
+  <p>
+    <button id="extractButton" disabled>
+      Extract Landmarks
+    </button>
+  </p>
+
+  <p id="status">Choose a video to begin.</p>
+
+  <script type="module">
+    import {
+      FilesetResolver,
+      PoseLandmarker
+    } from "@mediapipe/tasks-vision";
+
+    const fileInput = document.querySelector("#videoFile");
+    const video = document.querySelector("#video");
+    const extractButton = document.querySelector("#extractButton");
+    const status = document.querySelector("#status");
+
+    let videoUrl = null;
+    let landmarker = null;
+    let busy = false;
+
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files?.[0];
+      if (!file) return;
+
+      if (videoUrl) URL.revokeObjectURL(videoUrl);
+
+      videoUrl = URL.createObjectURL(file);
+      video.src = videoUrl;
+      extractButton.disabled = true;
+      status.textContent = "Loading video...";
+
+      video.onloadedmetadata = () => {
+        extractButton.disabled = false;
+        status.textContent =
+          `Video loaded: ${file.name}\n` +
+          `Duration: ${video.duration.toFixed(2)} seconds`;
+      };
+
+      video.onerror = () => {
+        status.textContent =
+          "The browser could not load this video. " +
+          "The .mov codec may not be supported.";
+      };
+    });
+
+    extractButton.addEventListener("click", async () => {
+      if (busy || !videoUrl) return;
+
+      busy = true;
+      extractButton.disabled = true;
+
+      try {
+        status.textContent = "Loading MediaPipe...";
+
+        if (!landmarker) {
+          const vision = await FilesetResolver.forVisionTasks(
+            "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.1.0/wasm"
+          );
+
+          landmarker = await PoseLandmarker.createFromOptions(
+            vision,
+            {
+              baseOptions: {
+                modelAssetPath: "/models/pose_landmarker_lite.task",
+                delegate: "GPU"
+              },
+              runningMode: "VIDEO",
+              numPoses: 1
+            }
+          );
+        }
+
+
+        // Pause the video so playback cannot affect sampling.
+        video.pause();
+
+        const frames = [];
+        const sampleInterval = 0.1;
+        let detectedFrames = 0;
+        let lastTimestamp = -1;
+
+        // Wait until the video has sought to the requested time.
+        async function seekTo(time) {
+          if (
+            video.readyState >= 2 &&
+            Math.abs(video.currentTime - time) < 0.001
+          ) {
+            return;
+          }
+
+          await new Promise((resolve, reject) => {
+            const onSeeked = () => {
+              cleanup();
+              resolve();
+            };
+
+            const onError = () => {
+              cleanup();
+              reject(new Error("Could not seek in the video."));
+            };
+
+            const cleanup = () => {
+              video.removeEventListener("seeked", onSeeked);
+              video.removeEventListener("error", onError);
+            };
+
+            video.addEventListener("seeked", onSeeked);
+            video.addEventListener("error", onError);
+
+            video.currentTime = time;
+          });
+        }
+
+        const totalFrames = Math.ceil(
+          video.duration / sampleInterval
+        );
+
+        status.textContent =
+          "Extracting landmarks...\nSampling at target timestamps.";
+
+        for (
+          let targetTime = 0;
+          targetTime < video.duration;
+          targetTime = Number(
+            (targetTime + sampleInterval).toFixed(3)
+          )
+        ) {
+          await seekTo(targetTime);
+
+          // MediaPipe requires increasing video timestamps.
+          const timestampMs = Math.round(targetTime * 1000);
+
+          if (timestampMs <= lastTimestamp) continue;
+
+          const result = landmarker.detectForVideo(
+            video,
+            timestampMs
+          );
+
+          const landmarks = result.landmarks?.[0] ?? [];
+
+          frames.push({
+            timestamp: Number(targetTime.toFixed(3)),
+            landmarks
+          });
+
+          if (landmarks.length > 0) detectedFrames++;
+
+          lastTimestamp = timestampMs;
+
+          if (frames.length % 10 === 0) {
+            status.textContent =
+              `Extracting landmarks...\n` +
+              `Frames sampled: ${frames.length} / ${totalFrames}\n` +
+              `Frames with detected poses: ${detectedFrames}`;
+          }
+        }
+
+        video.pause();
+
+        const output = {
+          videoName: fileInput.files[0].name,
+          sampleIntervalSeconds: sampleInterval,
+          landmarkCountPerDetectedPose: 33,
+          coordinateSystem:
+            "MediaPipe normalized image coordinates; x and y " +
+            "are normalized to the image, y increases downward, " +
+            "and z represents relative depth.",
+          frames
+        };
+
+        const blob = new Blob(
+          [JSON.stringify(output, null, 2)],
+          { type: "application/json" }
+        );
+
+        const downloadUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = downloadUrl;
+        link.download = "referenceLandmarks.json";
+        link.click();
+
+        URL.revokeObjectURL(downloadUrl);
+
+        status.textContent =
+          `Extraction complete!\n` +
+          `Frames sampled: ${frames.length}\n` +
+          `Frames with a detected pose: ${detectedFrames}\n` +
+          `Downloaded referenceLandmarks.json`;
+
+      } catch (error) {
+        console.error(error);
+        status.textContent =
+          `Extraction failed: ${error.message}\n` +
+          "Check the browser console for more details.";
+      } finally {
+        busy = false;
+        extractButton.disabled = !videoUrl;
+      }
+    });
+  </script>
+</body>
+</html>
