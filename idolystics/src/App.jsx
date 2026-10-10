@@ -11,9 +11,28 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <main>
-    <h1>hi</h1>
+    <main className="idolystics">
+      <nav className="navbar">
+        <h2 className="logo">idolytics</h2>
+        <p>YOUR AI DANCE COACH</p>
+      </nav>
       
+      <section className="hero">
+        <p className="eyebrow">YOUR VERY OWN POP STAR ACADEMY</p>
+        <p className="description">
+          Idolystics is an AI-powered dance training platform that helps you learn and improve your dance skills.
+        </p>
+
+        <button className="start-button">
+          Start Practicing
+        </button>
+      </section>
+
+      <footer className="footer">
+
+      </footer>
+  
+
       {/* components */}
     {<WebcamPose />}
     {/* <InstructorVideo/> */}
