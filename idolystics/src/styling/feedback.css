@@ -3,7 +3,7 @@
 .score-flash
 {
     margin-top: 50px;
-    bottom: 145%;
+    bottom: 150%;
 
 }
 
@@ -14,7 +14,7 @@
   font-size: 3rem;
   font-weight: 900;
   pointer-events: none;
-  animation: pop 600ms ease-out forwards;
+  animation: pop 650ms ease-out forwards;
 }
 
 @keyframes pop {

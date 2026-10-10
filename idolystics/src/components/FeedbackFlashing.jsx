@@ -34,11 +34,7 @@ export default function FeedbackFlashing() {
 
   return (
     <main class = "score-flash" style={{ position: "relative" }}>
-      <input
-        type="range" min="0" max="100" value={score}
-        onChange={e => setScore(+e.target.value)}
-      />
-      <Test score={score} active={active} />
+      
 
       {flash && (
         <div key={flash.id} className={`flash flash-${flash.tier}`}>
