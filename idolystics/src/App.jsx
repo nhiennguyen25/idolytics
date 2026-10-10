@@ -5,7 +5,7 @@ import './App.css'
 //import InstructorVideo from "./components/InstructorVideo";
 //import PracticeControls from "./components/PracticeControls";
 //import ResultsScreen from "./components/ResultsScreen";
-//import WebcamPose from "./components/WebcamPose";
+import WebcamPose from "./components/WebcamPose";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,7 +15,7 @@ function App() {
     <h1>hi</h1>
       
       {/* components */}
-    {/* <WebcamPose/> */}
+    {<WebcamPose />}
     {/* <InstructorVideo/> */}
     {/* <PracticeControls/> */}
     {/* <FeedbackPanel /> */}
