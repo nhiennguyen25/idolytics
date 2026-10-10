@@ -6,6 +6,9 @@ import FeedbackFlashing from "./components/FeedbackFlashing";
 //import PracticeControls from "./components/PracticeControls";
 //import ResultsScreen from "./components/ResultsScreen";
 import WebcamPose from "./components/WebcamPose";
+import {SkeletonTest} from "./components/SkeletonCanvas";
+import "./styling/video.css";
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -34,7 +37,10 @@ function App() {
   
 
       {/* components */}
-    {<WebcamPose />}
+    <div className = "webcam-container">
+      <WebcamPose/>
+      <SkeletonTest />
+    </div>
     {/* <InstructorVideo/> */}
     {/* <PracticeControls/> */}
     {/* <FeedbackPanel /> */}

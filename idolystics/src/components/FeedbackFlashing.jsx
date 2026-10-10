@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import '../styling/feedback.css'
-import {SkeletonTest} from "./SkeletonCanvas";
 
 // GET TIMING FROM QUYNH
 
@@ -31,7 +30,6 @@ export default function FeedbackFlashing() {
 
   return (
     <main class = "score-flash" style={{ position: "relative" }}>
-        {/* <SkeletonTest/> */}
       <input
         type="range" min="0" max="100" value={score}
         onChange={e => setScore(+e.target.value)}

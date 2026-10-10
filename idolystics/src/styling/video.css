@@ -1,0 +1,24 @@
+.webcam-container
+{
+    position: relative;
+    top: 0;
+    left: 0;
+    display: inline-block;   /* shrink-wrap the video instead of stretching */
+
+}
+
+.webcam-video
+{
+    display: block;
+    width: 100%;
+}
+
+.canvas-style
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}

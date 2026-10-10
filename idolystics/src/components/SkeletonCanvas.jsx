@@ -13,7 +13,7 @@ function SkeletonCanvas({landmarks, width, height})
     }, [landmarks, width, height]);
 
     return(
-       <canvas
+       <canvas className="canvas-style"
       ref={canvasRef}
       width={width}
       height={height}

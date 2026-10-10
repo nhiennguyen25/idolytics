@@ -116,7 +116,7 @@ function WebcamPose() {
   }, []);
 
   return (
-    <section>
+    <section  className="webcam-video">
       <h2>Idolytics Pose Detection</h2>
 
       <video
