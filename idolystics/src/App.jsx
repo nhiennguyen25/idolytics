@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import './App.css'
-import FeedbackFlash from "./components/FeedbackFlash";
-import FeedbackPanel from "./components/FeedbackPanel";
-import InstructorVideo from "./components/InstructorVideo";
-import PracticeControls from "./components/PracticeControls";
-import ResultsScreen from "./components/ResultsScreen";
-import WebcamPose from "./components/WebcamPose";
+// import FeedbackFlashing from "./components/FeedbackFlashing";
+//import FeedbackPanel from "./components/FeedbackPanel";
+//import InstructorVideo from "./components/InstructorVideo";
+//import PracticeControls from "./components/PracticeControls";
+//import ResultsScreen from "./components/ResultsScreen";
+//import WebcamPose from "./components/WebcamPose";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,12 +15,13 @@ function App() {
     <h1>hi</h1>
       
       {/* components */}
-    <WebcamePose/>
-    <InstructorVideo/>
-    <PracticeControls/>
-    <FeedbackPanel />
-    <FeedbackFlash />
-    <ResultsScreen/>
+    {/* <WebcamPose/> */}
+    {/* <InstructorVideo/> */}
+    {/* <PracticeControls/> */}
+    {/* <FeedbackPanel /> */}
+    {/* <FeedbackFlashing /> */}
+    {/* <ResultsScreen/> */}
+
     
     
 
