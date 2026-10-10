@@ -2,8 +2,8 @@
 
 /* we will get joint points coordinate as inputs, an example is one point for shoulder, 
 elbow, and wrist, and the angle between the two connected lines is angle between upper and lower arm
-create a function will take in 3 inputs of coordinates(3 joints) to get the angles
-then angle will be returned and compared with the instructor's angle for score
+create a function will take in 3 inputs of coordinates(3 joints) to get the angles at point B, which is at the elbow,
+then the angle, which is between upper arm and lower arm joints, will be returned 
  */
 
 
@@ -40,7 +40,8 @@ then angle will be returned and compared with the instructor's angle for score
     //from formula BA . BC = |BA||BC|cos(angle) --> angle = cos^-1[(BA . BC)/(|BA||BC|)]
 
     //first we will prevent division from 0 (error) if |BA| or |BC| = 0 by returning null
-    if (magnitudeBA == 0 || magnitudeBC == 0){
+    // === check equality without automatically converting between types
+    if (magnitudeBA === 0 || magnitudeBC === 0){
         return null;
     }
 
@@ -48,6 +49,13 @@ then angle will be returned and compared with the instructor's angle for score
     //calculate angle using angle = cos^-1[(BA . BC)/(|BA||BC|)]
     const insideCosine = dotProduct / (magnitudeBA * magnitudeBC);
 
+    //range of cos is -1 and 1, but floating points might be slightly out of range
+    // so max gets the higher negative (-1) incase float is (-1.0000..2), and min get lesser number (1) incase float is (1.0000..2)
     const clampedCosine = Math.max(-1, Math.min(1, insideCosine));
+
+    //calculate angle, acos = arccosine, and convert from radians to degrees by * 180/pi
+    const angle = Math.acos(clampedCosine) * (180/Math.PI);
+
+    return angle;
 
  }
