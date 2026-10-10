@@ -392,3 +392,17 @@ a {
     font-size: 18px;
   }
 }
+
+/* Practice page: instructor + webcam layout */
+.practice-videos {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.instructor-container {
+  width: 100%;
+  max-width: 360px;
+}
