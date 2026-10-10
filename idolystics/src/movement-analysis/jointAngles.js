@@ -18,23 +18,25 @@ then the angle, which is between upper arm and lower arm joints, will be returne
         //x and y is creating an object so it uses ':' not '='
         //so x is the key and the pointA.x - pointB.x is values (key: values, like dictionary in python)
         x: pointA.x - pointB.x,
-        y: pointA.y - pointB.y
+        y: pointA.y - pointB.y,
+        z: pointA.z - pointB.z
     };
 
     //create vector from joint B to C (ex: elbow to wrist)
     const BC = {
         x: pointC.x - pointB.x,
-        y: pointC.y - pointB.y
+        y: pointC.y - pointB.y,
+        z: pointC.z - pointB.z
     };
 
     //to get angle we use dot product formula where BA and BC are vectors: BA . BC = |BA||BC|cos(angle)
-    // to start get dot product, formula BA . BC = (BAx * BCx) + (BAy * BCy)
-    const dotProduct = (BA.x * BC.x) + (BA.y * BC.y);
+    // to start get dot product, formula BA . BC = (BAx * BCx) + (BAy * BCy) + (BAz * BCz)
+    const dotProduct = (BA.x * BC.x) + (BA.y * BC.y) + (BA.z * BC.z);
 
-    //then get |BA| and |BC|, formula is |BA| = sqrt((BAx)^2 + (BAy)^2)
-    const magnitudeBA = Math.sqrt(BA.x**2 + BA.y**2);
+    //then get |BA| and |BC|, formula is |BA| = sqrt((BAx)^2 + (BAy)^2 + (BAz)^2)
+    const magnitudeBA = Math.sqrt(BA.x**2 + BA.y**2 + BA.z**2);
     
-    const magnitudeBC = Math.sqrt(BC.x**2 + BC.y**2);
+    const magnitudeBC = Math.sqrt(BC.x**2 + BC.y**2 + BC.z**2);
 
 
     //from formula BA . BC = |BA||BC|cos(angle) --> angle = cos^-1[(BA . BC)/(|BA||BC|)]
@@ -59,3 +61,5 @@ then the angle, which is between upper arm and lower arm joints, will be returne
     return angle;
 
  }
+
+ 
