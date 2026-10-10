@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FilesetResolver, PoseLandmarker } from "@mediapipe/tasks-vision";
 
-function WebcamPose({ isCameraOn, setIsCameraOn, onLandmarks}) {
+function WebcamPose({ isCameraOn, setIsCameraOn, onLandmarks, children}) {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const landmarkerRef = useRef(null);
@@ -119,6 +119,7 @@ function WebcamPose({ isCameraOn, setIsCameraOn, onLandmarks}) {
   return (
     <section  className="webcam-video">
 
+      <div className="video-frame">
       <video
         ref={videoRef}
         autoPlay
@@ -131,12 +132,17 @@ function WebcamPose({ isCameraOn, setIsCameraOn, onLandmarks}) {
           borderRadius: "12px",
           backgroundColor: "#111",
         }}
+        
+        
       />
+      {children}
+      </div>
+
 
       <p>Status: {status}</p>
       <p>Body landmarks detected: {landmarkCount}</p>
 
-      <button onClick={isCameraOn ? stopCamera : startCamera}>
+      <button class = "webcam-button" onClick={isCameraOn ? stopCamera : startCamera}>
         {isCameraOn ? "Stop Camera" : "Start Camera"}
       </button>
     </section>

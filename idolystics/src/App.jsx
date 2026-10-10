@@ -142,8 +142,9 @@ function App() {
           </p>
 
           <div className = "webcam-container">
-            <WebcamPose isCameraOn={isCameraOn} setIsCameraOn={setIsCameraOn } onLandmarks={setLandmarks}/>
-            {isCameraOn && <SkeletonTest landmarks = {landmarks}/>}
+            <WebcamPose isCameraOn={isCameraOn} setIsCameraOn={setIsCameraOn} onLandmarks={setLandmarks}>
+            {isCameraOn && <SkeletonTest landmarks={landmarks} width={640} height={480} />}
+            </WebcamPose>
             <FeedbackFlashing /> 
           </div>
         </section>
