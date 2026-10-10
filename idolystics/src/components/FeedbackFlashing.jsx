@@ -13,6 +13,8 @@ function scoreToRating(score) {
 export default function FeedbackFlashing() {
   const [score, setScore] = useState(50);
   const [flash, setFlash] = useState(null);
+
+  //FIX ACTIVE LIKE HOW YOU DID FOR CANVAS
   const active = true;
   const intervalMs = 2000;
   const latest = useRef(score);
@@ -20,9 +22,11 @@ export default function FeedbackFlashing() {
   latest.current = score;
 
   useEffect(() => {
-    if (!active) return;
+    if (!active) 
+        return;
     const t = setInterval(() => {
-      if (latest.current == null) return;
+      if (latest.current == null) 
+        return;
       setFlash({ ...scoreToRating(latest.current), id: ++count.current });
     }, intervalMs);
     return () => clearInterval(t);

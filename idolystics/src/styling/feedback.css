@@ -3,11 +3,13 @@
 .score-flash
 {
     margin-top: 50px;
+    bottom: 145%;
+
 }
 
 .flash {
   position: absolute;
-  top: 12%;
+  top: 0;
   left: 50%;
   font-size: 3rem;
   font-weight: 900;
