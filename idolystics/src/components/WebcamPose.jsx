@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FilesetResolver, PoseLandmarker } from "@mediapipe/tasks-vision";
 
-function WebcamPose({ isCameraOn, setIsCameraOn }) {
+function WebcamPose({ isCameraOn, setIsCameraOn, onLandmarks}) {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const landmarkerRef = useRef(null);
@@ -57,6 +57,8 @@ function WebcamPose({ isCameraOn, setIsCameraOn }) {
           );
 
           const landmarks = results.landmarks?.[0] ?? [];
+          //sets user landmarks
+          onLandmarks?.(landmarks);       
           setLandmarkCount(landmarks.length);
           setStatus(
             landmarks.length > 0

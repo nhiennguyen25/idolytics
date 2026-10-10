@@ -9,7 +9,9 @@ import './styling/video.css'
 function App() {
   const [isPracticing, setIsPracticing] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(false);
+  const [landmarks, setLandmarks] = useState([]);
 
+  console.log(landmarks[0]);
 
   return (
     <main className="idolytics">
@@ -140,8 +142,8 @@ function App() {
           </p>
 
           <div className = "webcam-container">
-            <WebcamPose isCameraOn={isCameraOn} setIsCameraOn={setIsCameraOn}/>
-            {isCameraOn && <SkeletonTest />}
+            <WebcamPose isCameraOn={isCameraOn} setIsCameraOn={setIsCameraOn } onLandmarks={setLandmarks}/>
+            {isCameraOn && <SkeletonTest landmarks = {landmarks}/>}
             <FeedbackFlashing /> 
           </div>
         </section>

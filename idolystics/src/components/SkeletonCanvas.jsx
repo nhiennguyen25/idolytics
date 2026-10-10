@@ -32,11 +32,11 @@ function SkeletonCanvas({landmarks, width, height})
 }
 
  
-export function SkeletonTest(){
+export function SkeletonTest({landmarks}){
 
 
     return(
-           <SkeletonCanvas landmarks={fake} width={670} height = {480}/>
+           <SkeletonCanvas landmarks={landmarks} width={670} height = {480}/>
     )
     
 }
