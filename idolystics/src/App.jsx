@@ -139,10 +139,10 @@ function App() {
             Get ready, find your space, and let's dance!
           </p>
 
-          <div className="webcam-container">
-            <WebcamPose />
-            <SkeletonTest />
-            <FeedbackFlashing />
+          <div className = "webcam-container">
+            <WebcamPose isCameraOn={isCameraOn} setIsCameraOn={setIsCameraOn}/>
+            {isCameraOn && <SkeletonTest />}
+            <FeedbackFlashing /> 
           </div>
         </section>
       )}

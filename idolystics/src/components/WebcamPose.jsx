@@ -116,7 +116,6 @@ function WebcamPose({ isCameraOn, setIsCameraOn }) {
 
   return (
     <section  className="webcam-video">
-      <h2>Idolytics Pose Detection</h2>
 
       <video
         ref={videoRef}
