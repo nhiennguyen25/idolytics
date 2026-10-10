@@ -1,5 +1,10 @@
 /* styling for feedback below video AND flashing results*/
 
+.score-flash
+{
+    margin-top: 50px;
+}
+
 .flash {
   position: absolute;
   top: 12%;
