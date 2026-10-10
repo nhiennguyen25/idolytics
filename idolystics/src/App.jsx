@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-// import FeedbackFlashing from "./components/FeedbackFlashing";
-//import FeedbackPanel from "./components/FeedbackPanel";
+import FeedbackFlashing from "./components/FeedbackFlashing";
+// import FeedbackPanel from "./components/FeedbackPanel";
 //import InstructorVideo from "./components/InstructorVideo";
 //import PracticeControls from "./components/PracticeControls";
 //import ResultsScreen from "./components/ResultsScreen";
@@ -19,7 +19,7 @@ function App() {
     {/* <InstructorVideo/> */}
     {/* <PracticeControls/> */}
     {/* <FeedbackPanel /> */}
-    {/* <FeedbackFlashing /> */}
+     <FeedbackFlashing /> 
     {/* <ResultsScreen/> */}
 
     
