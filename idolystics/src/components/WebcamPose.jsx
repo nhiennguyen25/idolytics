@@ -2,14 +2,13 @@
 import { useEffect, useRef, useState } from "react";
 import { FilesetResolver, PoseLandmarker } from "@mediapipe/tasks-vision";
 
-function WebcamPose() {
+function WebcamPose({ isCameraOn, setIsCameraOn }) {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const landmarkerRef = useRef(null);
   const animationRef = useRef(null);
 
   const [status, setStatus] = useState("Camera stopped");
-  const [isCameraOn, setIsCameraOn] = useState(false);
   const [landmarkCount, setLandmarkCount] = useState(0);
 
   async function startCamera() {

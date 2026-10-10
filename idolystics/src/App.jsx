@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from "react";
 import './App.css'
 import FeedbackFlashing from './components/FeedbackFlashing'
 import WebcamPose from './components/WebcamPose'
@@ -7,7 +7,9 @@ import { SkeletonTest } from './components/SkeletonCanvas'
 import './styling/video.css'
 
 function App() {
-  const [isPracticing, setIsPracticing] = useState(false)
+  const [isPracticing, setIsPracticing] = useState(false);
+  const [isCameraOn, setIsCameraOn] = useState(false);
+
 
   return (
     <main className="idolytics">
