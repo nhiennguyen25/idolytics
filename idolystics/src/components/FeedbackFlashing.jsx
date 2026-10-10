@@ -35,16 +35,17 @@ export default function FeedbackFlashing({
     return () => clearInterval(t);
   }, [active, intervalMs]);
 
-  return (
-    <main class = "score-flash" style={{ position: "relative" }}>
-      
-
+   return (
+    <div className="score-flash">
       {flash && (
-        <div key={flash.id} className={`flash flash-${flash.tier}`}>
+        <div
+          key={flash.id}
+          className={`flash flash-${flash.tier}`}
+        >
           {flash.label}
         </div>
       )}
-    </main>
+    </div>
   );
 }
 
