@@ -18,8 +18,8 @@ function WebcamPose({ isCameraOn, setIsCameraOn, onLandmarks, children}) {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: "user",
-          width: 640,
-          height: 480,
+          width: 480,
+          height: 640,
         },
         audio: false,
       });
@@ -127,7 +127,8 @@ function WebcamPose({ isCameraOn, setIsCameraOn, onLandmarks, children}) {
         playsInline
         style={{
           width: "100%",
-          maxWidth: "640px",
+          height: "100%",
+          objectFit: "cover",
           transform: "scaleX(-1)",
           borderRadius: "12px",
           backgroundColor: "#111",
