@@ -1,17 +1,36 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import './App.css'
 import FeedbackFlashing from './components/FeedbackFlashing'
 import WebcamPose from './components/WebcamPose'
 import { SkeletonTest } from './components/SkeletonCanvas'
 import './styling/video.css'
 
+import { compareAngle } from "./movement-analysis/comparePoses.js";
+import referenceData from "./data/referenceLandmarksMirrored.json";
+
 function App() {
   const [isPracticing, setIsPracticing] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(false);
   const [landmarks, setLandmarks] = useState([]);
 
-  console.log(landmarks[0]);
+  const result = useMemo(() => {
+    const referencePose = referenceData.frames[0]?.landmarks;
+
+    if (
+      !referencePose ||
+      !Array.isArray(landmarks) ||
+      landmarks.length === 0
+    ) {
+      return null;
+    }
+
+    return compareAngle(referencePose, landmarks);
+  }, [landmarks]);
+
+  console.log("Webcam landmarks:", landmarks);
+  console.log("Comparison result:", result);
+  console.log("Similarity score:", result?.similarityScore);
 
   return (
     <main className="idolytics">
@@ -145,7 +164,11 @@ function App() {
             <WebcamPose isCameraOn={isCameraOn} setIsCameraOn={setIsCameraOn} onLandmarks={setLandmarks}>
             {isCameraOn && <SkeletonTest landmarks={landmarks} width={640} height={480} />}
             </WebcamPose>
-            <FeedbackFlashing /> 
+            <FeedbackFlashing 
+            score={result?.similarityScore ?? null}
+            active={isPracticing && isCameraOn}
+            intervalMs={2000}
+            /> 
           </div>
         </section>
       )}

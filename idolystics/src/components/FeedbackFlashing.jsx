@@ -10,16 +10,19 @@ function scoreToRating(score) {
   return { label: "MISS", tier: "miss" };
 }
 
-export default function FeedbackFlashing() {
-  const [score, setScore] = useState(50);
-  const [flash, setFlash] = useState(null);
+export default function FeedbackFlashing({
+  score,
+  active = true,
+  intervalMs = 2000
+}) {
 
   //FIX ACTIVE LIKE HOW YOU DID FOR CANVAS
-  const active = true;
-  const intervalMs = 2000;
+  const [flash, setFlash] = useState(null);
   const latest = useRef(score);
   const count = useRef(0);
+
   latest.current = score;
+
 
   useEffect(() => {
     if (!active) 
