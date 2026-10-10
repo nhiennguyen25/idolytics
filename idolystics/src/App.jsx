@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from "react";
 import './App.css'
 import FeedbackFlashing from "./components/FeedbackFlashing";
 // import FeedbackPanel from "./components/FeedbackPanel";
@@ -12,7 +12,9 @@ import "./styling/video.css";
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [isCameraOn, setIsCameraOn] = useState(false);
+
 
   return (
     <main className="idolystics">
@@ -38,9 +40,10 @@ function App() {
   
 
       {/* components */}
+
     <div className = "webcam-container">
-      <WebcamPose/>
-      <SkeletonTest />
+      <WebcamPose isCameraOn={isCameraOn} setIsCameraOn={setIsCameraOn}/>
+      {isCameraOn && <SkeletonTest />}
       <FeedbackFlashing /> 
     </div>
     {/* <InstructorVideo/> */}
