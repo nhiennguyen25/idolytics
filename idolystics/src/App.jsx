@@ -14,6 +14,7 @@ function App() {
   const [isPracticing, setIsPracticing] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(false);
   const [landmarks, setLandmarks] = useState([]);
+  const [totalScore, setTotalScore] = useState(0);
 
   const result = useMemo(() => {
     const referencePose = referenceData.frames[0]?.landmarks;
@@ -206,7 +207,13 @@ function App() {
         score={result?.similarityScore ?? null}
         active={isPracticing && isCameraOn}
         intervalMs={2000}
+        onScoreFlash={(score) => {
+          setTotalScore((previousTotal) => previousTotal + score);
+        }}
       />
+      <div className="total-score">
+        Total Score: {totalScore}
+      </div>
     </div>
   </div>
 </div>
