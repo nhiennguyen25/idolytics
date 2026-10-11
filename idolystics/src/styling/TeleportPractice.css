@@ -219,18 +219,44 @@
 .instructor-container .instructor-video {
   width: 100%;
   max-width: 360px;
-  min-width: 0;
   margin: 0 auto;
-  box-sizing: border-box;
 }
 
+/* Match instructor video frame to camera frame */
 .instructor-video__screen {
+  position: relative;
   width: 100%;
-  aspect-ratio: 9 / 16;
-  max-height: 560px;
+  height: 750px;
+  max-height: none;
+  overflow: hidden;
+  background: #171019;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Keep the dancer's proportions correct */
 .instructor-video__player {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: scaleX(-1);
+  cursor: pointer;
+}
+
+/* Taller instructor video without making it wider */
+.instructor-container .instructor-video__screen {
+  width: 100%;
+  height: 750px;
+  max-height: none;
+  aspect-ratio: auto;
+}
+
+/* Preserve the video's proportions */
+.instructor-container .instructor-video__player {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -239,6 +265,13 @@
 /* Give the camera content room without changing its behavior */
 .webcam-container .teleport-panel-content {
   min-width: 0;
+}
+
+/* Make webcam preview match instructor video height */
+.webcam-container .video-frame {
+  height: 750px;
+  max-height: none;
+  aspect-ratio: auto;
 }
 
 .webcam-container video,

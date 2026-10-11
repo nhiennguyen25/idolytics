@@ -105,12 +105,6 @@ function App() {
 
           <header className="navbar">
             <a className="logo" href="#home">idolytics ♡</a>
-
-            <nav className="nav-links">
-              <a href="#how-it-works">How it works</a>
-              <a href="#features">Features</a>
-              <a href="#dance-styles">Dance styles</a>
-            </nav>
           </header>
 
           <section className="hero" id="home">
