@@ -237,6 +237,11 @@ function App() {
       >
           {isDancing ? "Stop Dance" : countdown !== null ? "Cancel" : "Start Dance"}
         </button>
+        {countdown !== null && countdown > 0 && (
+      <div key={countdown} className="countdown">
+        {countdown}
+      </div>
+      )}
     </div>
   </div>
 
@@ -264,11 +269,7 @@ function App() {
           />
         )}
       </WebcamPose>
-      {countdown !== null && countdown > 0 && (
-    <div key={countdown} className="countdown">
-      {countdown}
-    </div>
-)}
+      
 
       <FeedbackFlashing
         score={result?.similarityScore ?? null}
