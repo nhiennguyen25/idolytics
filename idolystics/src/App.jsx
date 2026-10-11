@@ -15,6 +15,60 @@ function App() {
   const [isCameraOn, setIsCameraOn] = useState(false);
   const [landmarks, setLandmarks] = useState([]);
   const [totalScore, setTotalScore] = useState(0);
+  const instructorRef = useRef(null);
+  const [countdown, setCountdown] = useState(null); // null = not counting
+  const [isDancing, setIsDancing] = useState(false);
+
+  useEffect(() => {
+  if (countdown === null) return;
+
+  if (countdown === 0) {
+    const video = instructorRef.current;
+
+    if (video) {
+      video.currentTime = 0;
+
+      video.play()
+        .then(() => {
+          setIsDancing(true);
+        })
+        .catch((error) => {
+          console.error("Unable to play instructor video:", error);
+          setIsDancing(false);
+        });
+    }
+
+    setCountdown(null);
+    return;
+  }
+
+    const timer = setTimeout(() => {
+      setCountdown((c) => c - 1);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+    }, [countdown]);
+
+    function stopDance() {
+    setIsDancing(false);
+    setCountdown(null);
+    setLandmarks([]);
+
+    const video = instructorRef.current;
+
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  }
+
+  function handleDanceEnded() {
+    setIsDancing(false);
+    setCountdown(null);
+    setLandmarks([]);
+  }
+
+ 
 
   const result = useMemo(() => {
     const referencePose = referenceData.frames[0]?.landmarks;
@@ -174,7 +228,15 @@ function App() {
     </div>
 
     <div className="teleport-panel-content">
-      <InstructorVideo />
+      <InstructorVideo  videoRef={instructorRef}
+        onEnded={handleDanceEnded}/>
+      <button
+          className="dance-button"
+          disabled={!isCameraOn}
+          onClick={() => (isDancing || countdown !== null ? stopDance() : setCountdown(3))}
+      >
+          {isDancing ? "Stop Dance" : countdown !== null ? "Cancel" : "Start Dance"}
+        </button>
     </div>
   </div>
 
@@ -202,10 +264,15 @@ function App() {
           />
         )}
       </WebcamPose>
+      {countdown !== null && countdown > 0 && (
+    <div key={countdown} className="countdown">
+      {countdown}
+    </div>
+)}
 
       <FeedbackFlashing
         score={result?.similarityScore ?? null}
-        active={isPracticing && isCameraOn}
+         active={isPracticing && isCameraOn && isDancing}
         intervalMs={2000}
         onScoreFlash={(score) => {
           setTotalScore((previousTotal) => previousTotal + score);

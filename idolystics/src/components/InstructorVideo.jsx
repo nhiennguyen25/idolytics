@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import "../styling/InstructorVideo.css";
 
-function InstructorVideo({ videoRef, onTimeUpdate }) {
+function InstructorVideo({ videoRef, onTimeUpdate, onEnded}) {
   const internalVideoRef = useRef(null);
   const activeVideoRef = videoRef ?? internalVideoRef;
 
