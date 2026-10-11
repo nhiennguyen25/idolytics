@@ -136,6 +136,26 @@ a {
   box-shadow: 0 14px 28px #e4439b55;
 }
 
+.dance-button {
+  display: block;
+  margin: 20px auto 0;
+
+  padding: 12px 20px;
+  color: white;
+  background: #ec8fca;
+  border: 1.5px solid #f5b5de;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px #e4439b40;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dance-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px #e4439b55;
+}
+
 .little-note {
   margin-top: 24px;
   font-family: 'Cherry Bomb One', cursive;
