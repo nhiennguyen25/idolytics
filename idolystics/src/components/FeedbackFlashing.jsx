@@ -4,10 +4,14 @@ import '../styling/feedback.css'
 // GET TIMING FROM QUYNH
 
 function scoreToRating(score) {
-  if (score >= 85) return { label: "GOOD", tier: "good" };
-  if (score >= 65) return { label: "OKAY", tier: "okay" };
-  if (score >= 40) return { label: "BAD", tier: "bad" };
-  return { label: "MISS", tier: "miss" };
+  if (!Number.isFinite(score)){
+    return {label: "GET IN POSITION", tier: "waiting"};
+  }
+  if (score >= 90) return { label: "PERFECT", tier: "perfect" };
+  if (score >= 75) return { label: "SO CLOSE", tier: "close" };
+  if (score >= 55) return { label: "MID", tier: "adjust" };
+  if (score >=30) return {label: "TRY AGAIN", tier: "retry"};
+  return { label: "NOT YOUR BEST", tier: "reset" };
 }
 
 export default function FeedbackFlashing({
@@ -70,9 +74,9 @@ function Test({ score, active }) {
   );
 }
 
-function scoreCheck(score) {
+/*function scoreCheck(score) {
   if (score > 75) return "good";
   if (score > 50) return "okay";
   if (score > 25) return "bad";
   return "miss";
-}
+}*/

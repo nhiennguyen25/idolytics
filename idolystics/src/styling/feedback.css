@@ -15,6 +15,12 @@
   font-weight: 900;
   pointer-events: none;
   animation: pop 650ms ease-out forwards;
+
+   /* New styling */
+  padding: 10px 22px;
+  border-radius: 16px;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 @keyframes pop {
@@ -23,7 +29,9 @@
   100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
 }
 
-.flash-good { color: #b80081; }
-.flash-okay    { color: #7301a0; }
-.flash-bad      { color: #100086; }
-.flash-miss    { color: #7a7676; }
+.flash-perfect { color: #285640; background: rgba(220, 235, 221, 0.94);}
+.flash-close    { color: #514274;  background: rgba(220, 213, 240, 0.94);}
+.flash-adjust      { color: #813E67; background: rgba(244, 223, 235, 0.94);}
+.flash-retry    { color: #743E70; background: rgba(233, 213, 232, 0.94);}
+.flash-reset    { color: #65415F; background: rgba(232, 220, 232, 0.94);}
+.flash-waiting    { color: #5F586B; background: rgba(232, 229, 237, 0.94);}
