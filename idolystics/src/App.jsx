@@ -1,6 +1,6 @@
-
 import { useEffect, useRef, useState, useMemo } from "react";
 import './App.css'
+import "./styling/TeleportPractice.css";
 import FeedbackFlashing from './components/FeedbackFlashing'
 import WebcamPose from './components/WebcamPose'
 import { SkeletonTest } from './components/SkeletonCanvas'
@@ -161,22 +161,56 @@ function App() {
             Get ready, find your space, and let's dance!
           </p>
 
-        <div className="practice-videos">
-          <div className="instructor-container">
-            <InstructorVideo />
-          </div>
+<div className="practice-videos">
+  <div className="instructor-container">
+    <div className="teleport-panel-titlebar">
+      <div className="teleport-window-dots" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
+      <p className="teleport-panel-title">✧ YOUR DANCE INSTRUCTOR</p>
+    </div>
 
-          <div className = "webcam-container">
-            <WebcamPose isCameraOn={isCameraOn} setIsCameraOn={setIsCameraOn} onLandmarks={setLandmarks}>
-            {isCameraOn && <SkeletonTest landmarks={landmarks} width={640} height={480} />}
-            </WebcamPose>
-            <FeedbackFlashing 
-            score={result?.similarityScore ?? null}
-            active={isPracticing && isCameraOn}
-            intervalMs={2000}
-            /> 
-          </div>
-        </div>
+    <div className="teleport-panel-content">
+      <InstructorVideo />
+    </div>
+  </div>
+
+  <div className="webcam-container">
+    <div className="teleport-panel-titlebar teleport-panel-titlebar--camera">
+      <div className="teleport-window-dots" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
+      <p className="teleport-panel-title">✧ AI CAMERA TRACKING</p>
+    </div>
+
+    <div className="teleport-panel-content">
+      <WebcamPose
+        isCameraOn={isCameraOn}
+        setIsCameraOn={setIsCameraOn}
+        onLandmarks={setLandmarks}
+      >
+        {isCameraOn && (
+          <SkeletonTest
+            landmarks={landmarks}
+            width={640}
+            height={480}
+          />
+        )}
+      </WebcamPose>
+
+      <FeedbackFlashing
+        score={result?.similarityScore ?? null}
+        active={isPracticing && isCameraOn}
+        intervalMs={2000}
+      />
+    </div>
+  </div>
+</div>
+
         </section>
       )}
     </main>

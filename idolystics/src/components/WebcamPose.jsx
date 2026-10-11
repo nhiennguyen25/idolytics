@@ -143,7 +143,7 @@ function WebcamPose({ isCameraOn, setIsCameraOn, onLandmarks, children}) {
       <p>Status: {status}</p>
       <p>Body landmarks detected: {landmarkCount}</p>
 
-      <button class = "webcam-button" onClick={isCameraOn ? stopCamera : startCamera}>
+      <button className = "webcam-button" onClick={isCameraOn ? stopCamera : startCamera}>
         {isCameraOn ? "Stop Camera" : "Start Camera"}
       </button>
     </section>

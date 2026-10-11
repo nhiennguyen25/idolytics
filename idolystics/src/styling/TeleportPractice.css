@@ -1,0 +1,277 @@
+
+/* TeleportHQ practice-page design
+   This file styles the practice page only.
+   Your existing App.css stays in place. */
+
+.practice-page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 28px clamp(16px, 4vw, 60px) 48px;
+  color: #492640;
+  background:
+    radial-gradient(
+      ellipse at 18% 12%,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 255, 255, 0.36) 20%,
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 82% 25%,
+      rgba(203, 255, 250, 0.62) 0%,
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 64% 75%,
+      rgba(232, 213, 255, 0.72) 0%,
+      transparent 44%
+    ),
+    radial-gradient(
+      ellipse at 15% 85%,
+      rgba(255, 210, 233, 0.65) 0%,
+      transparent 40%
+    ),
+    linear-gradient(135deg, #fbffff, #d7e4e8, #ffffff, #f5e8f0, #d8eff0, #eee4f5);
+}
+
+/* Subtle background grid */
+.practice-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.3;
+  background-image:
+    linear-gradient(to right, rgba(100, 128, 145, 0.24) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(100, 128, 145, 0.24) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Decorative sparkles */
+.practice-page::after {
+  content: "✧   ⋆   ✦                         ✧";
+  position: absolute;
+  inset: 65px 5% auto;
+  z-index: -1;
+  height: 80px;
+  pointer-events: none;
+  color: rgba(192, 132, 252, 0.7);
+  font-size: 26px;
+  letter-spacing: 20px;
+}
+
+/* Keep page content above the decorative background */
+.practice-page > * {
+  position: relative;
+}
+
+/* Practice page heading */
+.practice-title {
+  margin: 24px 0 10px;
+  color: #2b3b63;
+  font-family: "Cherry Bomb One", cursive;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 0 0 20px rgba(192, 132, 252, 0.2);
+}
+
+.practice-description {
+  max-width: 600px;
+  margin: 0 auto 32px;
+  color: #6b7db3;
+  font-size: 17px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* Back button */
+.back-button {
+  border: 1px solid rgba(228, 67, 155, 0.35);
+  background: rgba(255, 255, 255, 0.85);
+  color: #492640;
+  box-shadow: 0 4px 14px rgba(249, 168, 212, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(249, 168, 212, 0.25);
+}
+
+/* Instructor + camera columns */
+.practice-videos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 450px));
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 40px);
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Both panels */
+.instructor-container,
+.webcam-container {
+  min-width: 0;
+  margin-top: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 2px solid rgba(249, 168, 212, 0.8);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: 0 0 22px rgba(249, 168, 212, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.instructor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  margin-top: 0;
+  border-color: rgba(249,168,212,0.85);
+}
+
+.webcam-container {
+  border-color: rgba(192, 132, 252, 0.85);
+  box-shadow: 0 0 22px rgba(192, 132, 252, 0.2);
+}
+
+/* Decorative panel title bars */
+.teleport-panel-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(249, 168, 212, 0.75);
+  background: linear-gradient(
+    180deg,
+    #fff8fd 0%,
+    #ecc9e3 23%,
+    #fff2fb 43%,
+    #ffffff 49%,
+    #c89bbe 54%,
+    #f4d9ea 74%,
+    #fff8fd 100%
+  );
+}
+
+.teleport-panel-titlebar--camera {
+  border-bottom-color: rgba(192, 132, 252, 0.75);
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #dcd3f0 23%,
+    #f9f3ff 43%,
+    #ffffff 49%,
+    #aea0c7 54%,
+    #e6dbf8 74%,
+    #ffffff 100%
+  );
+}
+
+.teleport-window-dots {
+  display: flex;
+  flex-shrink: 0;
+  gap: 5px;
+}
+
+.teleport-window-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f4a0c7;
+  box-shadow: inset 0 0 0 1px rgba(120, 40, 80, 0.12);
+}
+
+.teleport-window-dots span:nth-child(2) {
+  background: #f8d48b;
+}
+
+.teleport-window-dots span:nth-child(3) {
+  background: #9bd9b0;
+}
+
+.teleport-panel-title {
+  margin: 0;
+  color: #be185d;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.teleport-panel-titlebar--camera .teleport-panel-title {
+  color: #5b21b6;
+}
+
+/* Panel content */
+.teleport-panel-content {
+  min-width: 0;
+  padding: 16px;
+}
+
+/* Instructor video should remain responsive */
+.instructor-container .instructor-video {
+  width: 100%;
+  max-width: 360px;
+  min-width: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.instructor-video__screen {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 560px;
+}
+
+.instructor-video__player {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Give the camera content room without changing its behavior */
+.webcam-container .teleport-panel-content {
+  min-width: 0;
+}
+
+.webcam-container video,
+.webcam-container canvas {
+  max-width: 100%;
+}
+
+/* Responsive layout */
+@media (max-width: 800px) {
+  .practice-videos {
+    grid-template-columns: minmax(0, 450px);
+  }
+
+  .practice-title {
+    font-size: clamp(34px, 7vw, 48px);
+  }
+}
+
+@media (max-width: 520px) {
+  .practice-page {
+    padding: 20px 12px 32px;
+  }
+
+  .practice-title {
+    margin-top: 22px;
+  }
+
+  .practice-description {
+    margin-bottom: 24px;
+    font-size: 15px;
+  }
+
+  .teleport-panel-content {
+    padding: 10px;
+  }
+}
