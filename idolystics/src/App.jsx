@@ -66,6 +66,13 @@ function App() {
     setIsDancing(false);
     setCountdown(null);
     setLandmarks([]);
+    
+  }
+
+  function startDance() {
+  setTotalScore(0);
+  setLandmarks([]);
+  setCountdown(3);
   }
 
  
@@ -230,12 +237,22 @@ function App() {
     <div className="teleport-panel-content">
       <InstructorVideo  videoRef={instructorRef}
         onEnded={handleDanceEnded}/>
-      <button
+       <button
           className="dance-button"
           disabled={!isCameraOn}
-          onClick={() => (isDancing || countdown !== null ? stopDance() : setCountdown(3))}
-      >
-          {isDancing ? "Stop Dance" : countdown !== null ? "Cancel" : "Start Dance"}
+          onClick={() => {
+            if (isDancing || countdown !== null) {
+              stopDance();
+            } else {
+              startDance();
+            }
+          }}
+        >
+          {isDancing
+            ? "Stop Dance"
+            : countdown !== null
+              ? "Cancel"
+              : "Start Dance"}
         </button>
         {countdown !== null && countdown > 0 && (
       <div key={countdown} className="countdown">

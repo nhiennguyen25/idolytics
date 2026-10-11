@@ -97,7 +97,10 @@ function handleVideoKeyDown(event) {
           onLoadedMetadata={handleLoadedMetadata}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
-          onEnded={() => setIsPlaying(false)}
+          onEnded={() => {
+            setIsPlaying(false);
+            onEnded?.();
+          }}
           onClick={togglePlayback}
           onKeyDown={handleVideoKeyDown}
           tabIndex={0}
