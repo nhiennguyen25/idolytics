@@ -6,6 +6,7 @@ import WebcamPose from './components/WebcamPose'
 import { SkeletonTest } from './components/SkeletonCanvas'
 import './styling/video.css'
 import InstructorVideo from "./components/InstructorVideo";
+import { getReferenceFrame } from "./utils/getReferenceFrame.js";
 
 import { compareAngle } from "./movement-analysis/comparePoses.js";
 import referenceData from "./data/referenceLandmarksMirrored.json";
@@ -18,6 +19,7 @@ function App() {
   const instructorRef = useRef(null);
   const [countdown, setCountdown] = useState(null); // null = not counting
   const [isDancing, setIsDancing] = useState(false);
+  const [instructorTime, setInstructorTime] = useState(0);
 
   useEffect(() => {
   if (countdown === null) return;
@@ -77,8 +79,14 @@ function App() {
 
  
 
+
   const result = useMemo(() => {
-    const referencePose = referenceData.frames[0]?.landmarks;
+    const referenceFrame = getReferenceFrame(
+      referenceData.frames,
+      instructorTime
+    );
+
+    const referencePose = referenceFrame?.landmarks;
 
     if (
       !referencePose ||
@@ -89,7 +97,7 @@ function App() {
     }
 
     return compareAngle(referencePose, landmarks);
-  }, [landmarks]);
+  }, [landmarks, instructorTime]);
 
   console.log("Webcam landmarks:", landmarks);
   console.log("Comparison result:", result);
@@ -229,7 +237,9 @@ function App() {
     </div>
 
     <div className="teleport-panel-content">
-      <InstructorVideo  videoRef={instructorRef}
+      <InstructorVideo  
+        videoRef={instructorRef}
+        onTimeUpdate={setInstructorTime}
         onEnded={handleDanceEnded}/>
        <button
           className="dance-button"

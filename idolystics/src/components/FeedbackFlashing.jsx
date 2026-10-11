@@ -35,7 +35,7 @@ export default function FeedbackFlashing({
     if (!active) 
         return;
     const t = setInterval(() => {
-      if (latest.current == null) return;
+      if (!Number.isFinite(latest.current)) return;
 
       const currentScore = latest.current;
 
@@ -51,6 +51,21 @@ export default function FeedbackFlashing({
     }, [active, intervalMs]);
 
    return (
+
+      /*FOR DEBUGGING PURPOSES, SHOW SCORE
+        <div className="score-flash">
+      <p>Debug score: {String(score)}</p>
+
+      {flash && (
+        <div
+          key={flash.id}
+          className={`flash flash-${flash.tier}`}
+        >
+          {flash.label}
+        </div>
+      )}
+    </div>*/
+
     <div className="score-flash">
       {flash && (
         <div
