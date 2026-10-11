@@ -289,8 +289,9 @@ function App() {
             height={480}
           />
         )}
+
       </WebcamPose>
-      
+    
 
       <FeedbackFlashing
         score={result?.similarityScore ?? null}
@@ -300,11 +301,13 @@ function App() {
           setTotalScore((previousTotal) => previousTotal + score);
         }}
       />
-      <div className="total-score">
-        Total Score: {totalScore}
-      </div>
     </div>
   </div>
+</div>
+
+<div className="total-score">
+  <span className="total-score-label">✧ TOTAL SCORE ✧</span>
+  <span className="total-score-value">{totalScore}</span>
 </div>
 
         </section>

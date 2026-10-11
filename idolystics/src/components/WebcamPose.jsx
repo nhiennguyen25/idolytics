@@ -137,11 +137,35 @@ function WebcamPose({ isCameraOn, setIsCameraOn, onLandmarks, children}) {
         
       />
       {children}
+
+      {/* Decorative K-pop fancam overlay */}
+      <div className="idol-cam-overlay" aria-hidden="true">
+        <div className="idol-cam-top">
+          ✧ IDOL CAM ♡
+        </div>
+
+        <div className="idol-cam-bottom">
+          <div className="idol-cam-caption">
+            <p className="idol-cam-username">✧ @idolytics</p>
+            <p>You're the main character ♡</p>
+            <p className="idol-cam-music">
+              ♫ Super Shy — NewJeans
+            </p>
+          </div>
+
+          <div className="idol-cam-icons">
+            <span>♡</span>
+            <span>✧</span>
+            <span>☆</span>
+          </div>
+        </div>
+      </div>
       </div>
 
-
-      <p>Status: {status}</p>
-      <p>Body landmarks detected: {landmarkCount}</p>
+      <div className="webcam-info-bar">
+        <span>Status: {status}</span>
+        <span>Landmarks: {landmarkCount}</span>
+      </div>
 
       <button className = "webcam-button" onClick={isCameraOn ? stopCamera : startCamera}>
         {isCameraOn ? "Stop Camera" : "Start Camera"}
